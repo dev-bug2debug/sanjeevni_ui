@@ -151,8 +151,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     ),
                     //------------------Space between Confirm Password and SignUp Button
                     SizedBox(
-                      height: MediaQuery.of(context).size
-                      .height*0.02,
+                      height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     //------------------SignUp button--------------------------
                     MaterialButton(

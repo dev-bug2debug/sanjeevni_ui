@@ -206,7 +206,7 @@ class LoginScreenState extends State<LoginScreen> {
                           width: 40.0,
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.02,
+                          width: MediaQuery.of(context).size.width * 0.02,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
@@ -239,7 +239,7 @@ class LoginScreenState extends State<LoginScreen> {
                       children: <Widget>[
                         Icon(Icons.phone),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.02 ,
+                          width: MediaQuery.of(context).size.width * 0.02,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
