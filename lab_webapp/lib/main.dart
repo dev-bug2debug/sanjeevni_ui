@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'widgets/BackgroundLogin.dart';
+import 'package:labwebapp/screens/LoginScreen.dart';
 
-void main(){
+void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Testing',
-    home: BackgroundLogin(),
+    home: Scaffold(
+      body: LoginScreen(),
+    ),
   ));
 }
