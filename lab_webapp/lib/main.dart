@@ -6,7 +6,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     title: 'Testing',
     home: Scaffold(
-      body: LoginScreen(),
+      body: LoginScreen()
     ),
   ));
 }

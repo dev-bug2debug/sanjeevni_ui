@@ -9,7 +9,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class SignUpScreenState extends State<SignUpScreen> {
-  bool obscureText = true;
+  bool obscureText1 = true;
+  bool obscureText2 = true;
   bool rememberMe = false;
 
   @override
@@ -17,12 +18,12 @@ class SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          //-----------------Background for Login-------------------
+          //--------------------------------Background for Login-------------------------------------
           BackgroundLogin(),
-          //-----------------All the Wigdets Visible on the Login Screen except Logo--------------
+          //-----------------All the Wigdets Visible on the Login Screen except Logo------------------
           Column(
             children: <Widget>[
-              //--------------Text for Sanjeevni Header------------------------------
+              //----------------------------Text for Sanjeevni Header-----------------------------------
               Container(
                 alignment: Alignment.bottomLeft,
                 margin: EdgeInsets.only(top: 15.0, left: 45.0),
@@ -36,10 +37,11 @@ class SignUpScreenState extends State<SignUpScreen> {
                       decoration: TextDecoration.none),
                 ),
               ),
-              //------------Space between login and sanjeevni text-------------------
+              //----------------------Space between login and sanjeevni text-------------------------------
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.10,
               ),
+              //----------------------------All the content on login screen---------------------------------
               Container(
                 margin: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width * 0.15,
@@ -47,7 +49,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    //-----------TexrField for E-mail--------------------------------------
+                    //----------------------------TextField for E-mail--------------------------------------
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: TextFormField(
@@ -71,15 +73,15 @@ class SignUpScreenState extends State<SignUpScreen> {
                         cursorColor: Colors.black,
                       ),
                     ),
-                    //-----------Space between Email and Password TextFields-------------------
+                    //------------------Space between Email and Password TextFields----------------------
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    //-----------TexrField for Password-----------------------------------
+                    //---------------------------TextField for Password-----------------------------------
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: TextFormField(
-                        obscureText: obscureText,
+                        obscureText: obscureText1,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock),
@@ -87,7 +89,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             icon: Icon(Icons.remove_red_eye),
                             onPressed: () {
                               setState(() {
-                                obscureText = !obscureText;
+                                obscureText1 = !obscureText1;
                               });
                             },
                             color: Colors.black,
@@ -110,15 +112,15 @@ class SignUpScreenState extends State<SignUpScreen> {
                         cursorColor: Colors.black,
                       ),
                     ),
-                    //-----------Space between Password and Confirm Password
+                    //-----------------Space between Password and Confirm Password-----------------------
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    //-----------TexrField for Confirm Password-----------------------------------
+                    //--------------------TextField for Confirm Password-----------------------------------
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
                       child: TextFormField(
-                        obscureText: obscureText,
+                        obscureText: obscureText2,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock),
@@ -126,7 +128,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             icon: Icon(Icons.remove_red_eye),
                             onPressed: () {
                               setState(() {
-                                obscureText = !obscureText;
+                                obscureText2 = !obscureText2;
                               });
                             },
                             color: Colors.black,
@@ -149,11 +151,11 @@ class SignUpScreenState extends State<SignUpScreen> {
                         cursorColor: Colors.black,
                       ),
                     ),
-                    //------------------Space between Confirm Password and SignUp Button
+                    //------------------Space between Confirm Password and SignUp Button----------------
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    //------------------SignUp button--------------------------
+                    //--------------------------------SignUp button--------------------------------------
                     MaterialButton(
                       color: Colors.white,
                       onPressed: () {},
@@ -171,9 +173,11 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
+              //-------------------space between sign in with phone number and footer---------------------
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.28,
               ),
+              //----------------------------------------footer--------------------------------------------
               Row(
                 children: <Widget>[
                   SizedBox(
