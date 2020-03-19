@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labwebapp/Authentication/lab_authentication.dart';
 import 'package:labwebapp/widgets/BackgroundLogin.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -12,6 +13,13 @@ class SignUpScreenState extends State<SignUpScreen> {
   bool obscureText1 = true;
   bool obscureText2 = true;
   bool rememberMe = false;
+
+  //code added by Rana Atul
+  //....variable for taking the value of the textfield after click the signup button.....
+  String email = '';
+  String password = '';
+  String confirmpass = '';
+  //............
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +78,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                             decoration: TextDecoration.none,
                           ),
                         ),
+                        // code added by Rana Atul
+                        onChanged: (val) {
+                          setState(() => email = val);
+                        },
                         cursorColor: Colors.black,
                       ),
                     ),
@@ -109,6 +121,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                             decoration: TextDecoration.none,
                           ),
                         ),
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        },
                         cursorColor: Colors.black,
                       ),
                     ),
@@ -148,6 +163,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                             decoration: TextDecoration.none,
                           ),
                         ),
+                        onChanged: (val) {
+                          setState(() => confirmpass = val);
+                        },
                         cursorColor: Colors.black,
                       ),
                     ),
@@ -158,7 +176,13 @@ class SignUpScreenState extends State<SignUpScreen> {
                     //--------------------------------SignUp button--------------------------------------
                     MaterialButton(
                       color: Colors.white,
-                      onPressed: () {},
+                      onPressed: () async {
+                        // print(email);
+                        // print(password);
+                        // print(confirmpass);
+                        Authentication lab = new Authentication();// This is class which used to send data in database
+                        lab.labSignUp(email, password,confirmpass);// This method is in the Authentication class and it send data to Backend
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Text(
