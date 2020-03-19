@@ -10,7 +10,7 @@ class Authentication{
     };
 
     // Api calling ......note this api is hosted locally
-    final response = await http.post('http://127.0.0.1:8000/postsignup/',body: data);
+    final response = await http.post('http://127.0.0.1:8000/labSignUp/',body: data);
     if (response.statusCode == 200) {
       debugPrint('2');
     } else {
