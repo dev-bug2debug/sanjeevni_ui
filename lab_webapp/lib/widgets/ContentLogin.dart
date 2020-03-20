@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:labwebapp/screens/ForgotPassword.dart';
+import 'package:labwebapp/Authentication/lab_authentication.dart';
 import 'package:labwebapp/screens/SignUpScreen.dart';
 
 class ContentLogin extends StatefulWidget{
@@ -18,6 +19,8 @@ class ContentLoginState extends State<ContentLogin>{
 
   bool obscureText = true;
   bool rememberMe = false;
+  String email="";
+  String password="";
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,10 @@ class ContentLoginState extends State<ContentLogin>{
                     ),
                   ),
                   cursorColor: Colors.black,
+                  //... code added by Rana
+                   onChanged: (val) {
+                          setState(() => email = val);
+                        },
                 ),
               ),
               //---------------------Space between Email and Password TextFields-----------------------
@@ -108,6 +115,11 @@ class ContentLoginState extends State<ContentLogin>{
                     ),
                   ),
                   cursorColor: Colors.black,
+                  //  code added by me
+                  onChanged: (val) {
+                          setState(() => password = val);
+                        },
+                        //.......
                 ),
               ),
               //-----------------------Remember me checkBox and Forgot password-------------------------
@@ -147,7 +159,14 @@ class ContentLoginState extends State<ContentLogin>{
               //------------------------------Login Button-----------------------------------------
               MaterialButton(
                 color: Colors.white,
-                onPressed: () {},
+                // code added by rana
+                onPressed: () async {
+                        // print(email);
+                        // print(password);
+                        Authentication lab = new Authentication();// This is class which used to send data in database
+                        lab.labSignIn(email, password);// This method is in the Authentication class and it send data to Backend and check this user is exist or not
+                      },
+
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Text(
