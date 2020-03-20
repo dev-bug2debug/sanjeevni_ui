@@ -22,19 +22,15 @@ class LoginScreenState extends State<LoginScreen> {
         BackgroundLogin(),
         //-----------------All the Wigdets Visible on the Login Screen except Logo--------------
         (MediaQuery.of(context).size.width < 1300)
-            ? (MediaQuery.of(context).size.width < 1150)
-                ? (MediaQuery.of(context).size.width < 800)
-                    ? (MediaQuery.of(context).size.width < 502)
-                        ? (MediaQuery.of(context).size.width < 400)
-                            ? ContentLogin(
-                                percent: 0.02,
-                              )
-                            : ContentLogin(
-                                percent: 0.10,
-                              )
-                        : ContentLogin(percent: 0.25)
-                    : ContentLogin(percent: 0.45)
-                : ContentLogin(percent: 0.55)
+            ? (MediaQuery.of(context).size.width < 969)
+                ? (MediaQuery.of(context).size.width < 775)
+                    ? (MediaQuery.of(context).size.width < 646)
+                        ? (MediaQuery.of(context).size.width < 554)
+                            ? ContentLogin(percent: 0.10)
+                            : ContentLogin(percent: 0.20)
+                        : ContentLogin(percent: 0.30)
+                    : ContentLogin(percent: 0.40)
+                : ContentLogin(percent: 0.50)
             : ContentLogin(percent: 0.60)
       ],
     );

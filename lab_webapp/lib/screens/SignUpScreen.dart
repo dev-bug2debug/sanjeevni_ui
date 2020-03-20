@@ -12,7 +12,6 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   bool obscureText1 = true;
   bool obscureText2 = true;
-  bool rememberMe = false;
 
   //code added by Rana Atul
   //....variable for taking the value of the textfield after click the signup button.....

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labwebapp/screens/ForgotPassword.dart';
 import 'package:labwebapp/screens/SignUpScreen.dart';
 
 class ContentLogin extends StatefulWidget{
@@ -43,14 +44,13 @@ class ContentLoginState extends State<ContentLogin>{
         //---------------------------------All the contents on Screen--------------------------------------
         Container(
           margin: EdgeInsets.only(
-              right: MediaQuery.of(context).size.width * 0.15,
+              right: MediaQuery.of(context).size.width * 0.10,
               left: MediaQuery.of(context).size.width * widget.percent),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               //----------------------------TextField for E-mail--------------------------------------
               Container(
-                //width: MediaQuery.of(context).size.width * percent1,
                 child: TextFormField(
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -78,7 +78,6 @@ class ContentLoginState extends State<ContentLogin>{
               ),
               //---------------------------TextField for Password-------------------------------------
               Container(
-                //width: MediaQuery.of(context).size.width * percent1,
                 child: TextFormField(
                   obscureText: obscureText,
                   textAlign: TextAlign.center,
@@ -139,7 +138,9 @@ class ContentLoginState extends State<ContentLogin>{
                     child: Text('Forgot Password?',
                         style: TextStyle(
                             fontFamily: 'Roboto', letterSpacing: 0.5)),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=> ForgotPassword()));
+                    },
                   ),
                 ],
               ),
