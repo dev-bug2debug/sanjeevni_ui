@@ -12,7 +12,9 @@ class ContentTests extends StatefulWidget {
 class ContentTestsState extends State<ContentTests> {
   Test test = Test();
   List<dynamic> testList;
-  List<String> selectedTest = [];
+  List<dynamic> selectedTest = [];
+  List<dynamic> testAdded=[];
+  List<dynamic> testRemoved=[];
 
   @override
   void initState() {
@@ -238,7 +240,9 @@ class ContentTestsState extends State<ContentTests> {
                                 border: Border.all(color: Colors.purple),
                                 borderRadius: BorderRadius.circular(30.0)),
                             child: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                test.getData('post', selectedTest, uid: 'UID2');
+                              },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0)),
                               child: Row(
@@ -308,20 +312,50 @@ class ContentTestsState extends State<ContentTests> {
   }
 
   Widget getSelectedTest(context) {
-    return ListView.builder(
-      itemCount: selectedTest.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(selectedTest[index]),
-          trailing: IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              setState(() {
-                //testList.add(testList[index]);
-                selectedTest.removeAt(index);
-              });
+    return FutureBuilder(
+      future: test.getData('get', '*UID',uid: 'user1'),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          //print(snapshot.data);
+          //print(snapshot.data.runtimeType);
+          //print(snapshot.data['result'].runtimeType);
+          selectedTest = snapshot.data['result'];
+//          snapshot.data.forEach((key,value){
+//            print(key);
+//            print(value);
+//          });
+          //testList.removeWhere((element) => selectedTest.contains(element));
+
+          selectedTest.addAll(testAdded);
+          selectedTest=selectedTest.toSet().toList();
+          selectedTest.removeWhere((element) => testRemoved.contains(element));
+          selectedTest.sort();
+          return ListView.builder(
+            itemCount: selectedTest.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(selectedTest[index]),
+                trailing: IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed: () {
+                    setState(() {
+                      //testList.add(testList[index]);
+                      if (testAdded.contains(selectedTest[index])){
+                        testAdded.remove(selectedTest[index]);
+                      }
+                      else{
+                        testRemoved.add(selectedTest[index]);
+                      }
+                    });
+                  },
+                ),
+              );
             },
-          ),
+          );
+        }
+        return Center(
+          child: Container(
+              height: 40.0, width: 40.0, child: CircularProgressIndicator()),
         );
       },
     );
@@ -331,7 +365,7 @@ class ContentTestsState extends State<ContentTests> {
 //    List<dynamic> testList;
 //    List<String> selectedTest=[];
     return FutureBuilder(
-      future: test.getData(),
+      future: test.getData('get', '*NAMES'),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           //print(snapshot.data);
@@ -353,7 +387,12 @@ class ContentTestsState extends State<ContentTests> {
                   icon: Icon(Icons.arrow_forward),
                   onPressed: () {
                     setState(() {
-                      selectedTest.add(testList[index]);
+                      if (testRemoved.contains(testList[index])){
+                        testRemoved.remove(testList[index]);
+                      }
+                      else{
+                        testAdded.add(testList[index]);
+                      }
                       //testList.removeAt(index);
                     });
                   },
