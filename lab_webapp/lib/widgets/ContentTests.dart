@@ -13,12 +13,15 @@ class ContentTestsState extends State<ContentTests> {
   Test test = Test();
   List<dynamic> testList;
   List<dynamic> selectedTest = [];
-  List<dynamic> testAdded=[];
-  List<dynamic> testRemoved=[];
+  List<dynamic> testAdded = [];
+  List<dynamic> testRemoved = [];
+  String testName;
+  TextEditingController testNameController=TextEditingController();
 
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -216,7 +219,14 @@ class ContentTestsState extends State<ContentTests> {
                                 border: Border.all(color: Colors.purple),
                                 borderRadius: BorderRadius.circular(30.0)),
                             child: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                testNameController.text='';
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CustomTest();
+                                    });
+                              },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0)),
                               child: Row(
@@ -313,7 +323,7 @@ class ContentTestsState extends State<ContentTests> {
 
   Widget getSelectedTest(context) {
     return FutureBuilder(
-      future: test.getData('get', '*UID',uid: 'user1'),
+      future: test.getData('get', '*UID', uid: 'UID2'),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           //print(snapshot.data);
@@ -327,7 +337,7 @@ class ContentTestsState extends State<ContentTests> {
           //testList.removeWhere((element) => selectedTest.contains(element));
 
           selectedTest.addAll(testAdded);
-          selectedTest=selectedTest.toSet().toList();
+          selectedTest = selectedTest.toSet().toList();
           selectedTest.removeWhere((element) => testRemoved.contains(element));
           selectedTest.sort();
           return ListView.builder(
@@ -340,10 +350,9 @@ class ContentTestsState extends State<ContentTests> {
                   onPressed: () {
                     setState(() {
                       //testList.add(testList[index]);
-                      if (testAdded.contains(selectedTest[index])){
+                      if (testAdded.contains(selectedTest[index])) {
                         testAdded.remove(selectedTest[index]);
-                      }
-                      else{
+                      } else {
                         testRemoved.add(selectedTest[index]);
                       }
                     });
@@ -387,10 +396,9 @@ class ContentTestsState extends State<ContentTests> {
                   icon: Icon(Icons.arrow_forward),
                   onPressed: () {
                     setState(() {
-                      if (testRemoved.contains(testList[index])){
+                      if (testRemoved.contains(testList[index])) {
                         testRemoved.remove(testList[index]);
-                      }
-                      else{
+                      } else {
                         testAdded.add(testList[index]);
                       }
                       //testList.removeAt(index);
@@ -406,6 +414,109 @@ class ContentTestsState extends State<ContentTests> {
               height: 40.0, width: 40.0, child: CircularProgressIndicator()),
         );
       },
+    );
+  }
+
+  Widget CustomTest() {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            'Got Something New!!',
+            style: TextStyle(
+                fontSize: 20.0,
+                shadows: [
+                  Shadow(
+                      offset: Offset(0.2, -0.2),
+                      blurRadius: 3.0,
+                      color: Color(0x99000000))
+                ]),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height*0.02),
+          Container(
+            width: MediaQuery.of(context).size.width*0.3,
+            child: TextFormField(
+              controller: testNameController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.edit),
+                labelText: "Enter Test Name",
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(27.0)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(27.0)),
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                  letterSpacing: 0.5,
+                  fontFamily: 'Abril Fatface',
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              cursorColor: Colors.black,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.09,
+                margin: EdgeInsets.only(
+                    //left: MediaQuery.of(context).size.width * 0.01,
+                    top: MediaQuery.of(context).size.height * 0.015),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(30.0)),
+                child: MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.cancel),
+                      Expanded(child: Text('Cancel'))
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.09,
+                margin: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.01,
+                    top: MediaQuery.of(context).size.height * 0.015),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(30.0)),
+                child: MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      testAdded.add(testNameController.text);
+                    });
+                    Navigator.pop(context);
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.check_circle_outline),
+                      Expanded(child: Text('Confirm'))
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
