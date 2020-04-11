@@ -15,13 +15,13 @@ class ContentTestsState extends State<ContentTests> {
   List<dynamic> selectedTest = [];
   List<dynamic> testAdded = [];
   List<dynamic> testRemoved = [];
-  String testName;
-  TextEditingController testNameController=TextEditingController();
+  String searchText = '';
+  TextEditingController testNameController = TextEditingController();
+  TextEditingController searchTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -127,16 +127,21 @@ class ContentTestsState extends State<ContentTests> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
+                                  //height: MediaQuery.of(context).size.height*0.09,
                                   width:
-                                      MediaQuery.of(context).size.width * 0.2,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.06,
+                                      MediaQuery.of(context).size.width * 0.25,
                                   child: TextFormField(
+                                    controller: testNameController,
                                     textAlign: TextAlign.center,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         icon: Icon(Icons.search),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          setState(() {
+                                            searchText =
+                                                searchTextController.text;
+                                          });
+                                        },
                                         color: Colors.black,
                                         tooltip: "Click to Search",
                                       ),
@@ -153,8 +158,16 @@ class ContentTestsState extends State<ContentTests> {
                                               BorderRadius.circular(27.0)),
                                       labelStyle: TextStyle(
                                         color: Colors.black,
+                                        letterSpacing: 0.5,
+                                        fontFamily: 'Abril Fatface',
+                                        decoration: TextDecoration.none,
                                       ),
                                     ),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        searchText = value;
+                                      });
+                                    },
                                     cursorColor: Colors.black,
                                   ),
                                 ),
@@ -163,9 +176,9 @@ class ContentTestsState extends State<ContentTests> {
                                       top: MediaQuery.of(context).size.height *
                                           0.015),
                                   width:
-                                      MediaQuery.of(context).size.width * 0.31,
+                                      MediaQuery.of(context).size.width * 0.34,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.64,
+                                      MediaQuery.of(context).size.height * 0.62,
                                   decoration: BoxDecoration(
                                       boxShadow: [
                                         BoxShadow(
@@ -220,7 +233,7 @@ class ContentTestsState extends State<ContentTests> {
                                 borderRadius: BorderRadius.circular(30.0)),
                             child: MaterialButton(
                               onPressed: () {
-                                testNameController.text='';
+                                testNameController.text = '';
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -386,6 +399,8 @@ class ContentTestsState extends State<ContentTests> {
 //            print(value);
 //          });
           testList.sort();
+          testList.removeWhere((element) =>
+              !(element.toLowerCase().contains(searchText.toLowerCase())));
           //testList.removeWhere((element) => selectedTest.contains(element));
           return ListView.builder(
             itemCount: testList.length,
@@ -425,18 +440,16 @@ class ContentTestsState extends State<ContentTests> {
         children: <Widget>[
           Text(
             'Got Something New!!',
-            style: TextStyle(
-                fontSize: 20.0,
-                shadows: [
-                  Shadow(
-                      offset: Offset(0.2, -0.2),
-                      blurRadius: 3.0,
-                      color: Color(0x99000000))
-                ]),
+            style: TextStyle(fontSize: 20.0, shadows: [
+              Shadow(
+                  offset: Offset(0.2, -0.2),
+                  blurRadius: 3.0,
+                  color: Color(0x99000000))
+            ]),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height*0.02),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Container(
-            width: MediaQuery.of(context).size.width*0.3,
+            width: MediaQuery.of(context).size.width * 0.3,
             child: TextFormField(
               controller: testNameController,
               textAlign: TextAlign.center,
@@ -490,7 +503,7 @@ class ContentTestsState extends State<ContentTests> {
                 height: MediaQuery.of(context).size.height * 0.05,
                 width: MediaQuery.of(context).size.width * 0.09,
                 margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.01,
+                    left: MediaQuery.of(context).size.width * 0.01,
                     top: MediaQuery.of(context).size.height * 0.015),
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.purple),
